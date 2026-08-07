@@ -39,7 +39,12 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>
+      // المؤقّت أعلاه يعيد البناء كل ثانية، لكن الاعتماد عليه وحده يعني
+      // تأخّر ظهور الرضعة المحفوظة حتى الدقّة التالية. نستمع للحالة صراحةً.
+      ListenableBuilder(listenable: AppState.I, builder: (context, _) => _body(context));
+
+  Widget _body(BuildContext context) {
     final app = AppState.I;
     if (app.current == null) return const SizedBox.shrink();
 

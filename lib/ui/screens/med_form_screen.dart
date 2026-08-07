@@ -173,62 +173,46 @@ class _MedFormScreenState extends State<MedFormScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          _label('مقدار الجرعة'),
+          SizedBox(
+            width: 170,
+            child: FilledField(
+              controller: _dose,
+              hint: '5',
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _label('الوحدة'),
+          // أزرار بعرضها الطبيعي داخل Wrap — حشرها في نصف عرض الشاشة
+          // كان يلفّ نصوصها إلى سطرين («ملغ / م»).
+          Wrap(
+            spacing: 7,
+            runSpacing: 7,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _label('مقدار الجرعة'),
-                    FilledField(
-                      controller: _dose,
-                      hint: '5',
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    ),
-                  ],
+              for (final u in _units)
+                PillButton(
+                  label: u,
+                  selected: _unit == u,
+                  onTap: () => setState(() => _unit = u),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _label('الوحدة'),
-                    Row(
-                      children: [
-                        for (var i = 0; i < _units.length; i++) ...[
-                          if (i > 0) const SizedBox(width: 6),
-                          PillButton(
-                            label: _units[i],
-                            selected: _unit == _units[i],
-                            expand: true,
-                            onTap: () => setState(() => _unit = _units[i]),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
           const SizedBox(height: 16),
           _label('النوع'),
-          Row(
+          Wrap(
+            spacing: 7,
+            runSpacing: 7,
             children: [
-              for (final t in MedType.values) ...[
-                if (t != MedType.values.first) const SizedBox(width: 7),
+              for (final t in MedType.values)
                 PillButton(
                   label: medTypeLabel(t),
                   selected: _type == t,
-                  expand: true,
                   onTap: () => setState(() {
                     _type = t;
                     if (t != MedType.prn) _regenerateTimes();
                   }),
                 ),
-              ],
             ],
           ),
           const SizedBox(height: 16),

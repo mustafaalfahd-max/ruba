@@ -91,7 +91,9 @@ class PillButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         child: Container(
           height: height,
-          alignment: Alignment.center,
+          // مع alignment غير فارغ يتمدّد Container ليملأ المتاح، وهو مطلوب
+          // داخل Expanded فقط. في Wrap نتركه فارغاً ليأخذ الزر عرض نصّه.
+          alignment: expand ? Alignment.center : null,
           padding: const EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -100,12 +102,19 @@ class PillButton extends StatelessWidget {
               width: 1.5,
             ),
           ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 15.5,
-              color: selected ? RC.cyanDark : RC.ink3,
-              fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+          // FittedBox يصغّر النص بدل أن يلفّه إلى سطرين عند ضيق الزر —
+          // كان «ملغم» يظهر «ملغ / م» و«عند اللزوم» مقطوعاً.
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              maxLines: 1,
+              softWrap: false,
+              style: TextStyle(
+                fontSize: 15.5,
+                color: selected ? RC.cyanDark : RC.ink3,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+              ),
             ),
           ),
         ),
@@ -202,12 +211,19 @@ class PrimaryButton extends StatelessWidget {
                       Icon(icon, size: 21, color: Colors.white),
                       const SizedBox(width: 8),
                     ],
-                    Text(
-                      label,
-                      style: TextStyle(
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          label,
+                          maxLines: 1,
+                          softWrap: false,
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -253,7 +269,17 @@ class GhostButton extends StatelessWidget {
             Icon(icon, size: 21, color: textColor),
             const SizedBox(width: 8),
           ],
-          Text(label, style: TextStyle(fontSize: fontSize, color: textColor)),
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                label,
+                maxLines: 1,
+                softWrap: false,
+                style: TextStyle(fontSize: fontSize, color: textColor),
+              ),
+            ),
+          ),
         ],
       ),
     );

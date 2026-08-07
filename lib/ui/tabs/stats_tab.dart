@@ -154,7 +154,7 @@ class _StatsTabState extends State<StatsTab> {
               physics: const NeverScrollableScrollPhysics(),
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              childAspectRatio: 2.1,
+              childAspectRatio: 1.9,
               children: [
                 _stat('${d?.avgDaily ?? 0} مل', 'المتوسط اليومي'),
                 _stat((d?.avgFeedsPerDay ?? 0).toStringAsFixed(1), 'متوسط عدد الرضعات'),
@@ -274,16 +274,22 @@ class _StatsTabState extends State<StatsTab> {
         padding: const EdgeInsets.all(14),
         radius: 18,
         shadowOpacity: .08,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(value,
-                style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 4),
-            Text(label,
-                style: const TextStyle(fontSize: 13, color: RC.ink4, height: 1.4)),
-          ],
+        // FittedBox يمنع الفيضان مهما كبر خط النظام أو طال النص،
+        // بدل الاعتماد على ارتفاع محسوب من نسبة أبعاد ثابتة.
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: AlignmentDirectional.centerStart,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(value,
+                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              Text(label,
+                  style: const TextStyle(fontSize: 13, color: RC.ink4, height: 1.4)),
+            ],
+          ),
         ),
       );
 

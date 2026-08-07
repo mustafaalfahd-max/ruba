@@ -24,7 +24,13 @@ class MedsTab extends StatelessWidget {
   const MedsTab({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>
+      // بدون هذا المستمع لا يُعاد بناء التبويب بعد إضافة علاج:
+      // IndexedStack يمرّر نفس نُسخة const في كل مرة، وFlutter يتخطّى
+      // إعادة بناء أي widget مطابق بالهوية.
+      ListenableBuilder(listenable: AppState.I, builder: (context, _) => _body(context));
+
+  Widget _body(BuildContext context) {
     final app = AppState.I;
     final active = app.medViews.where((v) => !v.med.ended).toList();
     final done = app.medViews.where((v) => v.med.ended).toList();
