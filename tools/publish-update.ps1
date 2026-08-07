@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   ينشر إصداراً جديداً من «ربى» على GitHub، فيصل التحديث إلى الهاتف تلقائياً.
 
@@ -46,6 +46,22 @@ foreach ($cmd in @('flutter', 'git', 'gh')) {
     if (-not (Get-Command $cmd -ErrorAction SilentlyContinue)) { throw "الأمر '$cmd' غير موجود في PATH" }
 }
 
+# gh يكتب "release not found" على stderr، و PowerShell مع ErrorActionPreference=Stop
+# يحوّل ذلك إلى خطأ قاتل. نعزل الاستدعاء ونحكم بـ exit code وحده.
+function Test-ReleaseExists {
+    param([string]$Tag)
+    $prev = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        & gh release view $Tag --json tagName 2>&1 | Out-Null
+        return ($LASTEXITCODE -eq 0)
+    }
+    finally {
+        $ErrorActionPreference = $prev
+        $global:LASTEXITCODE = 0
+    }
+}
+
 Push-Location $root
 try {
     # ── رقم الإصدار من pubspec.yaml ────────────────────────────────────────
@@ -62,7 +78,8 @@ try {
     if ($LASTEXITCODE -ne 0 -or -not $slug) { throw 'تعذّرت قراءة معلومات المستودع — تأكد أن المجلد مرتبط بمستودع GitHub' }
     $branch = (& git rev-parse --abbrev-ref HEAD).Trim()
 
-    if ((& gh release view $tag --json tagName 2>$null) -and -not $DryRun) {
+    $releaseExists = Test-ReleaseExists $tag
+    if ($releaseExists -and -not $DryRun) {
         Write-Host "تنبيه: الوسم $tag موجود مسبقاً — سيُستبدل ملف APK داخله." -ForegroundColor Yellow
     }
 
@@ -113,7 +130,7 @@ try {
     # ── الرفع: الأصل أولاً ثم البيان ───────────────────────────────────────
     $notes = if ($Changelog.Count) { ($Changelog | ForEach-Object { "- $_" }) -join "`n" } else { "الإصدار $versionName" }
 
-    if (& gh release view $tag --json tagName 2>$null) {
+    if ($releaseExists) {
         Write-Host "رفع APK إلى الإصدار الموجود $tag…" -ForegroundColor Cyan
         & gh release upload $tag $apkOut --clobber
     }
