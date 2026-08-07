@@ -1,10 +1,13 @@
-﻿{
+{
     "versionCode":  2,
     "versionName":  "1.1.0",
     "apkUrl":  "https://github.com/mustafaalfahd-max/ruba/releases/download/v1.1.0/ruba-1.1.0.apk",
-    "sha256":  "28ad663fc35d22bb3bb665d920d4b20eb18fe3186bd3bfbf08049fab1225a243",
+    "sha256":  "c1600eae129bfcba87890e62eff25c9685db0cb0d384c0ba03f8297fddb7e285",
     "changelog":  [
-                      "الوضع الداكن مع مبدّل يتبع النظام,تقرير PDF عربي للطبيب,إصلاح عدم ظهور العلاجات بعد إضافتها,إصلاح تزاحم أزرار الاختيار"
+                      "الوضع الداكن مع مبدّل يتبع النظام",
+                      "تقرير PDF عربي للطبيب",
+                      "إصلاح عدم ظهور العلاجات بعد إضافتها",
+                      "إصلاح تزاحم أزرار الاختيار"
                   ],
     "mandatory":  false
 }
