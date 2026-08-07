@@ -83,7 +83,9 @@ class UpdateService {
       if (res.statusCode != 200) {
         return UpdateCheckResult(error: 'تعذّر الوصول إلى المصدر (${res.statusCode})');
       }
-      final json = jsonDecode(utf8.decode(res.bodyBytes));
+      // بعض المحرّرات وأدوات ويندوز تكتب BOM في مقدمة الملف، و jsonDecode يرفضه.
+      final body = utf8.decode(res.bodyBytes).replaceFirst(RegExp(r'^﻿'), '');
+      final json = jsonDecode(body);
       if (json is! Map<String, dynamic>) {
         return const UpdateCheckResult(error: 'صيغة ملف الإصدار غير متوقعة');
       }

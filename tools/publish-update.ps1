@@ -102,6 +102,13 @@ try {
     $sizeMb = [math]::Round((Get-Item $apkOut).Length / 1MB, 1)
 
     # ── بيان الإصدار ───────────────────────────────────────────────────────
+    # `powershell -File` يمرّر المصفوفة كنصّ واحد مفصول بفواصل، فنعيد تقسيمه
+    # حتى تظهر كل ملاحظة سطراً مستقلاً داخل التطبيق.
+    if ($Changelog.Count -eq 1 -and $Changelog[0] -match ',') {
+        $Changelog = $Changelog[0] -split ',' | ForEach-Object { $_.Trim() } |
+            Where-Object { $_ }
+    }
+
     $manifest = [ordered]@{
         versionCode = $versionCode
         versionName = $versionName
@@ -113,7 +120,12 @@ try {
     $updatesDir = Join-Path $root 'updates'
     if (-not (Test-Path $updatesDir)) { New-Item -ItemType Directory $updatesDir | Out-Null }
     $jsonPath = Join-Path $updatesDir 'version.json'
-    $manifest | ConvertTo-Json -Depth 4 | Out-File $jsonPath -Encoding utf8
+    # بلا BOM: `Out-File -Encoding utf8` في PowerShell 5.1 يضيف BOM،
+    # و jsonDecode في دارت يرفض الملف عندها ويفشل التحقق من التحديث.
+    [System.IO.File]::WriteAllText(
+        $jsonPath,
+        ($manifest | ConvertTo-Json -Depth 4),
+        (New-Object System.Text.UTF8Encoding($false)))
 
     $manifestUrl = "https://raw.githubusercontent.com/$slug/$branch/updates/version.json"
 
