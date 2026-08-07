@@ -1,0 +1,46 @@
+name: ruba
+description: "ربى — تطبيق متابعة الرضاعة الصناعية وعلاجات الأطفال"
+publish_to: 'none'
+
+# النسخة تُقرأ داخل التطبيق وتُقارن بـ version.json عند التحقق من التحديثات.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # قاعدة البيانات المحلية
+  sqflite: ^2.4.1
+  path: ^1.9.0
+
+  # تنسيق التواريخ والأرقام بالعربية
+  intl: ^0.19.0
+
+  # تفضيلات بسيطة (الثيم، ساعة بداية اليوم، الكميات السريعة...)
+  shared_preferences: ^2.3.3
+
+  # النسخ الاحتياطي والتحديثات
+  path_provider: ^2.1.5
+  file_picker: ^8.1.6
+  share_plus: ^10.1.2
+  http: ^1.2.2
+  crypto: ^3.0.6
+  package_info_plus: ^8.1.2
+  open_filex: ^4.6.0
+
+  # تذكير الرضعات والجرعات
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

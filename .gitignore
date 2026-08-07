@@ -1,0 +1,58 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ── أسرار التوقيع — لا تُرفع أبداً ──────────────────────────────────────────
+# ضياع المفتاح يعني استحالة إصدار أي تحديث، ورفعه يعني أن غيرك يستطيع
+# توقيع نسخة مزيّفة تُثبَّت فوق تطبيقك.
+/android/key.properties
+*.jks
+*.keystore
+
+# مسار Flutter SDK يخص هذا الجهاز
+/android/local.properties
+
+# مخرجات النشر — تُرفع كأصول Release لا داخل المستودع
+/dist/
