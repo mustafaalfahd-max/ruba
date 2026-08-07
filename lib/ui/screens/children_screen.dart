@@ -45,7 +45,7 @@ class ChildrenScreen extends StatelessWidget {
                         children: [
                           ReorderableDragStartListener(
                             index: i,
-                            child: const Icon(Icons.drag_indicator_rounded,
+                            child: Icon(Icons.drag_indicator_rounded,
                                 size: 22, color: RC.ink7),
                           ),
                           const SizedBox(width: 10),
@@ -53,7 +53,7 @@ class ChildrenScreen extends StatelessWidget {
                             width: 46,
                             height: 46,
                             alignment: Alignment.center,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: RC.muted,
                               shape: BoxShape.circle,
                             ),
@@ -87,7 +87,7 @@ class ChildrenScreen extends StatelessWidget {
                                           fontSize: 18, fontWeight: FontWeight.w600)),
                                   const SizedBox(height: 2),
                                   Text(ageLabel(app.children[i].dob),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 13.5, color: RC.ink4)),
                                 ],
                               ),
@@ -116,7 +116,7 @@ class ChildrenScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'الأرشفة تُخفي الطفل من التبديل السريع وتُبقي كل سجلاته.',
               style: TextStyle(fontSize: 13, color: RC.ink4, height: 1.7),
             ),
@@ -135,11 +135,11 @@ class ChildrenScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(c.name,
-                              style: const TextStyle(fontSize: 17, color: RC.ink3)),
+                              style: TextStyle(fontSize: 17, color: RC.ink3)),
                         ),
                         TextButton(
                           onPressed: () => app.archiveChild(c.id, false),
-                          child: const Text('استعادة',
+                          child: Text('استعادة',
                               style: TextStyle(color: RC.cyanDark)),
                         ),
                       ],

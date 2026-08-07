@@ -91,21 +91,21 @@ class _BackupScreenState extends State<BackupScreen> {
       child: AbsorbPointer(
         absorbing: _busy,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 14, 16, 28),
+          padding: EdgeInsets.fromLTRB(16, 14, 16, 28),
           children: [
             RubaCard(
-              padding: const EdgeInsets.all(18),
+              padding: EdgeInsets.all(18),
               shadowOpacity: .09,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text('تصدير نسخة الآن',
+                  Text('تصدير نسخة الآن',
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   Text(_meta,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 14.5, color: RC.ink3, height: 1.7)),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   PrimaryButton(
                     label: _busy ? 'جارٍ العمل…' : 'تصدير نسخة الآن',
                     height: 50,
@@ -115,23 +115,23 @@ class _BackupScreenState extends State<BackupScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             RubaCard(
-              padding: const EdgeInsets.all(18),
+              padding: EdgeInsets.all(18),
               shadowOpacity: .09,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text('استعادة من ملف',
+                  Text('استعادة من ملف',
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
                     decoration: BoxDecoration(
                       color: RC.magentaWash,
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Row(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Icon(Icons.error_outline_rounded,
@@ -148,7 +148,7 @@ class _BackupScreenState extends State<BackupScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   GhostButton(
                     label: 'اختيار ملف نسخة',
                     height: 50,
@@ -160,12 +160,12 @@ class _BackupScreenState extends State<BackupScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             RubaCard(
               shadowOpacity: .09,
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -187,11 +187,11 @@ class _BackupScreenState extends State<BackupScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 18),
-            const SectionLabel('آخر 7 نسخ تلقائية'),
-            const SizedBox(height: 10),
+            SizedBox(height: 18),
+            SectionLabel('آخر 7 نسخ تلقائية'),
+            SizedBox(height: 10),
             if (_auto.isEmpty)
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 18),
                 child: Text('لم تُؤخذ نسخ تلقائية بعد.',
                     style: TextStyle(fontSize: 15, color: RC.ink4)),
@@ -213,15 +213,15 @@ class _BackupScreenState extends State<BackupScreen> {
                         ),
                       ),
                       Text(BackupService.humanSize(b.bytes),
-                          style: const TextStyle(fontSize: 14, color: RC.ink4)),
+                          style: TextStyle(fontSize: 14, color: RC.ink4)),
                       const SizedBox(width: 6),
-                      const Icon(Icons.restore_rounded, size: 18, color: RC.ink6),
+                      Icon(Icons.restore_rounded, size: 18, color: RC.ink6),
                     ],
                   ),
                 ),
               ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'اضغط أي نسخة تلقائية لاستعادتها.',
               style: TextStyle(fontSize: 13, color: RC.ink4),
             ),

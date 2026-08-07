@@ -128,7 +128,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'تطبيق رعاية الرضّع',
             style: TextStyle(fontSize: 13, letterSpacing: 2.8, color: RC.ink4),
           ),
@@ -137,7 +137,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           const SizedBox(height: 18),
           Container(width: 44, height: 3, color: RC.cyan),
           const SizedBox(height: 18),
-          const SizedBox(
+          SizedBox(
             width: 300,
             child: Text(
               'سجّل رضعات طفلك وجرعات علاجه في مكان واحد. ضغطتان لتسجيل رضعة، '
@@ -165,7 +165,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onTap: _pickDob,
             ),
             const SizedBox(height: 18),
-            const Text('الجنس', style: TextStyle(fontSize: 14, color: RC.ink4)),
+            Text('الجنس', style: TextStyle(fontSize: 14, color: RC.ink4)),
             const SizedBox(height: 9),
             Row(
               children: [
@@ -233,7 +233,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 children: [
                   Text(
                     '$_goal',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 54,
                       fontWeight: FontWeight.w600,
                       height: 1,
@@ -241,7 +241,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Text('مل / يوم', style: TextStyle(fontSize: 18, color: RC.ink4)),
+                  Text('مل / يوم', style: TextStyle(fontSize: 18, color: RC.ink4)),
                 ],
               ),
               const SizedBox(height: 14),
@@ -249,7 +249,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 w != null && w > 0
                     ? 'محسوب من الوزن: ${_weight.text.trim()} كغ × 110 مل لكل كيلوغرام.'
                     : 'لا يوجد وزن — هذه قيمة عامة لعمر الرضيع. عدّلها إن أوصى الطبيب بغيرها.',
-                style: const TextStyle(fontSize: 15, color: RC.ink3, height: 1.7),
+                style: TextStyle(fontSize: 15, color: RC.ink3, height: 1.7),
               ),
               const SizedBox(height: 16),
               Row(
@@ -258,14 +258,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   const SizedBox(width: 10),
                   _goalBtn('+', () => setState(() => _goal = (_goal + 10).clamp(100, 3000))),
                   const SizedBox(width: 12),
-                  const Text('بخطوات 10 مل', style: TextStyle(fontSize: 14, color: RC.ink4)),
+                  Text('بخطوات 10 مل', style: TextStyle(fontSize: 14, color: RC.ink4)),
                 ],
               ),
             ],
           ),
         ),
         const SizedBox(height: 20),
-        const Text(
+        Text(
           'يمكنك تغييره لاحقاً من ملف الطفل.',
           style: TextStyle(fontSize: 15, color: RC.ink4, height: 1.7),
         ),
@@ -291,11 +291,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.medical_services_rounded, size: 44, color: RC.magenta),
+          Icon(Icons.medical_services_rounded, size: 44, color: RC.magenta),
           const SizedBox(height: 16),
           Text('تنبيه طبي', style: Theme.of(context).textTheme.headlineMedium),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'ربى أداة تسجيل ومتابعة فقط، ولا يقدّم تشخيصاً ولا توصية دوائية. '
             'الجرعات والمواعيد التي تُدخلها هي ما يعرضه التطبيق. '
             'راجع طبيب طفلك قبل أي تغيير في العلاج أو التغذية.',

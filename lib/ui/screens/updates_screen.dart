@@ -133,7 +133,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
               ),
             ),
             const SizedBox(height: 14),
-            const Text('عنوان مصدر التحديث',
+            Text('عنوان مصدر التحديث',
                 style: TextStyle(fontSize: 14, color: RC.ink4)),
             const SizedBox(height: 6),
             FilledField(
@@ -144,7 +144,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
               onChanged: (v) => Settings.I.setUpdateUrl(v),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'ملف JSON ينشره على الحاسوب أو على GitHub Releases، يحوي رقم الإصدار '
               'ورابط ملف APK وبصمته. يقارنه التطبيق بنسخته الحالية.',
               style: TextStyle(fontSize: 13, color: RC.ink4, height: 1.7),
@@ -158,7 +158,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Text(_message!,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 14.5, color: RC.cyanDark, height: 1.7)),
               ),
             ],
@@ -180,7 +180,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                                 fontSize: 19, fontWeight: FontWeight.w600)),
                         if (_total > 0)
                           Text(_sizeLabel(_total),
-                              style: const TextStyle(fontSize: 14, color: RC.ink4)),
+                              style: TextStyle(fontSize: 14, color: RC.ink4)),
                       ],
                     ),
                     if (_found!.changelog.isNotEmpty) ...[
@@ -191,11 +191,11 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('—', style: TextStyle(color: RC.cyan)),
+                              Text('—', style: TextStyle(color: RC.cyan)),
                               const SizedBox(width: 9),
                               Expanded(
                                 child: Text(c,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 15, height: 1.6, color: RC.ink2)),
                               ),
                             ],
@@ -211,7 +211,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                             ? 'اكتمل التنزيل'
                             : 'جارٍ التنزيل ${(_progress! * 100).round()}%'
                                 '${_total > 0 ? ' · ${_sizeLabel(_received)} من ${_sizeLabel(_total)}' : ''}',
-                        style: const TextStyle(fontSize: 13.5, color: RC.ink4),
+                        style: TextStyle(fontSize: 13.5, color: RC.ink4),
                       ),
                     ],
                     const SizedBox(height: 14),
@@ -247,14 +247,14 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                         ),
                         child: Column(
                           children: [
-                            const Icon(Icons.android_rounded,
+                            Icon(Icons.android_rounded,
                                 size: 40, color: RC.ink2),
                             const SizedBox(height: 12),
                             const Text('تثبيت التحديث',
                                 style: TextStyle(
                                     fontSize: 17, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 8),
-                            const Text(
+                            Text(
                               'سيطلب أندرويد تأكيد التثبيت من مصدر خارجي. '
                               'بياناتك تبقى كما هي.',
                               textAlign: TextAlign.center,

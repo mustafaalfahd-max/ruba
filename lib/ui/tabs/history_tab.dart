@@ -34,7 +34,7 @@ class HistoryTab extends StatefulWidget {
 class _HistoryTabState extends State<HistoryTab> {
   int _offset = 0; // 0 = اليوم
   bool _monthOpen = false;
-  Map<int, int> _monthTotals = const {};
+  Map<int, int> _monthTotals = {};
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _HistoryTabState extends State<HistoryTab> {
     if (c == null) {
       return const _DayData(total: 0, feedCount: 0, goal: 0, entries: []);
     }
-    final from = _selectedStart, to = from.add(const Duration(days: 1));
+    final from = _selectedStart, to = from.add(Duration(days: 1));
     final feeds = await app.repo.feedings(c.id, from, to);
     final goal = await app.repo.goalOn(c.id, to, c.goalMl);
     final doses = await app.repo.childDosesInRange(c.id, from, to);
@@ -113,43 +113,43 @@ class _HistoryTabState extends State<HistoryTab> {
       builder: (context, snap) {
         final d = snap.data;
         return ListView(
-          padding: const EdgeInsets.fromLTRB(0, 12, 0, 110),
+          padding: EdgeInsets.fromLTRB(0, 12, 0, 110),
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('السجل',
+                  Text('السجل',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                   TextButton.icon(
                     onPressed: () async {
                       setState(() => _monthOpen = !_monthOpen);
                       if (_monthOpen) await _loadMonth();
                     },
-                    icon: const Icon(Icons.calendar_month_rounded,
+                    icon: Icon(Icons.calendar_month_rounded,
                         size: 22, color: RC.cyan),
                     label: Text(_monthOpen ? 'إغلاق' : 'الشهر',
-                        style: const TextStyle(color: RC.cyan, fontSize: 15)),
+                        style: TextStyle(color: RC.cyan, fontSize: 15)),
                   ),
                 ],
               ),
             ),
             if (_monthOpen) ...[
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: _monthCard(d?.goal ?? app.goalToday),
               ),
             ],
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             SizedBox(
               height: 66,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 itemCount: 7,
-                separatorBuilder: (_, __) => const SizedBox(width: 9),
+                separatorBuilder: (_, __) => SizedBox(width: 9),
                 itemBuilder: (_, i) {
                   final day = dayStartOffset(DateTime.now(), Settings.I.dayStartHour, i);
                   final on = _offset == i;
@@ -158,7 +158,7 @@ class _HistoryTabState extends State<HistoryTab> {
                     borderRadius: BorderRadius.circular(16),
                     child: Container(
                       width: 56,
-                      padding: const EdgeInsets.symmetric(vertical: 9),
+                      padding: EdgeInsets.symmetric(vertical: 9),
                       decoration: BoxDecoration(
                         color: on ? RC.cyan : RC.card,
                         borderRadius: BorderRadius.circular(16),
@@ -189,9 +189,9 @@ class _HistoryTabState extends State<HistoryTab> {
                 },
               ),
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: RubaCard(
                 child: Row(
                   children: [
@@ -208,13 +208,13 @@ class _HistoryTabState extends State<HistoryTab> {
                 ),
               ),
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   if (d != null && d.entries.isEmpty)
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 22),
                       child: Text(
                         'لا توجد سجلات في هذا اليوم.',
@@ -252,7 +252,7 @@ class _HistoryTabState extends State<HistoryTab> {
                 style: TextStyle(
                     fontSize: 22, fontWeight: FontWeight.w600, color: color)),
             const SizedBox(height: 3),
-            Text(label, style: const TextStyle(fontSize: 12.5, color: RC.ink4)),
+            Text(label, style: TextStyle(fontSize: 12.5, color: RC.ink4)),
           ],
         ),
       );
@@ -315,7 +315,7 @@ class _HistoryTabState extends State<HistoryTab> {
             ],
           ),
           const SizedBox(height: 14),
-          const Wrap(
+          Wrap(
             spacing: 14,
             runSpacing: 6,
             children: [
@@ -367,7 +367,7 @@ class _Legend extends StatelessWidget {
             decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(5)),
           ),
           const SizedBox(width: 5),
-          Text(label, style: const TextStyle(fontSize: 12.5, color: RC.ink4)),
+          Text(label, style: TextStyle(fontSize: 12.5, color: RC.ink4)),
         ],
       );
 }

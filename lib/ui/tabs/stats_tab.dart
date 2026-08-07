@@ -137,7 +137,7 @@ class _StatsTabState extends State<StatsTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('الكمية اليومية مقابل الهدف',
+                  Text('الكمية اليومية مقابل الهدف',
                       style: TextStyle(fontSize: 14, color: RC.ink4)),
                   const SizedBox(height: 12),
                   if (d != null)
@@ -182,13 +182,13 @@ class _StatsTabState extends State<StatsTab> {
                         app.weights.isEmpty
                             ? '—'
                             : '${app.weights.last.kg} كغ · ${shortDayLabel(app.weights.last.at)}',
-                        style: const TextStyle(fontSize: 12.5, color: RC.ink4),
+                        style: TextStyle(fontSize: 12.5, color: RC.ink4),
                       ),
                       Text(
                         app.weights.isEmpty
                             ? '—'
                             : '${app.weights.first.kg} كغ · ${shortDayLabel(app.weights.first.at)}',
-                        style: const TextStyle(fontSize: 12.5, color: RC.ink4),
+                        style: TextStyle(fontSize: 12.5, color: RC.ink4),
                       ),
                     ],
                   ),
@@ -215,7 +215,7 @@ class _StatsTabState extends State<StatsTab> {
                                 style: const TextStyle(fontSize: 14.5)),
                           ),
                           Text('${v.adherencePct}%',
-                              style: const TextStyle(fontSize: 14.5, color: RC.ink3)),
+                              style: TextStyle(fontSize: 14.5, color: RC.ink3)),
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -231,7 +231,7 @@ class _StatsTabState extends State<StatsTab> {
               ),
             const SizedBox(height: 6),
             GhostButton(
-              label: 'تصدير تقرير للطبيب',
+              label: 'تصدير تقرير PDF',
               icon: Icons.picture_as_pdf_rounded,
               height: 52,
               fontSize: 16.5,
@@ -287,7 +287,7 @@ class _StatsTabState extends State<StatsTab> {
                   style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
               Text(label,
-                  style: const TextStyle(fontSize: 13, color: RC.ink4, height: 1.4)),
+                  style: TextStyle(fontSize: 13, color: RC.ink4, height: 1.4)),
             ],
           ),
         ),

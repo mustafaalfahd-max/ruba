@@ -261,7 +261,7 @@ class _MedFormScreenState extends State<MedFormScreen> {
                         'تاريخ الانتهاء المحسوب: '
                         '${shortDayLabel((widget.existing?.startAt ?? DateTime.now()).add(Duration(days: _days)))}'
                         ' · ${_perDay * _days} جرعة',
-                        style: const TextStyle(fontSize: 14.5, color: RC.cyanDark),
+                        style: TextStyle(fontSize: 14.5, color: RC.cyanDark),
                       ),
                     ),
                   ],
@@ -328,7 +328,7 @@ class _MedFormScreenState extends State<MedFormScreen> {
 
   Widget _label(String t) => Padding(
         padding: const EdgeInsets.only(bottom: 6),
-        child: Text(t, style: const TextStyle(fontSize: 14, color: RC.ink4)),
+        child: Text(t, style: TextStyle(fontSize: 14, color: RC.ink4)),
       );
 
   Widget _toggleRow(String label, bool value, ValueChanged<bool> onChanged) => Padding(

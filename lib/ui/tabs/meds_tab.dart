@@ -36,37 +36,37 @@ class MedsTab extends StatelessWidget {
     final done = app.medViews.where((v) => v.med.ended).toList();
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 40),
+      padding: EdgeInsets.fromLTRB(16, 12, 16, 40),
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('العلاجات',
+            Text('العلاجات',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
             SizedBox(
               height: 38,
               child: FilledButton.icon(
                 style: FilledButton.styleFrom(
                   backgroundColor: RC.cyan,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(19)),
                 ),
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const MedFormScreen()),
+                  MaterialPageRoute(builder: (_) => MedFormScreen()),
                 ),
-                icon: const Icon(Icons.add_rounded, size: 18),
-                label: const Text('إضافة', style: TextStyle(fontSize: 15)),
+                icon: Icon(Icons.add_rounded, size: 18),
+                label: Text('إضافة', style: TextStyle(fontSize: 15)),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 16),
-        const SectionLabel('نشطة'),
-        const SizedBox(height: 10),
+        SizedBox(height: 16),
+        SectionLabel('نشطة'),
+        SizedBox(height: 10),
         if (active.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 22),
             child: Text(
               'لا توجد علاجات نشطة لهذا الطفل.',
@@ -140,7 +140,7 @@ class _ActiveMedCard extends StatelessWidget {
                     Text(
                       '${trimDose(m.dose)} ${m.unit} · '
                       '${m.isPrn ? 'عند اللزوم' : perDayLabel(m.perDay)}',
-                      style: const TextStyle(fontSize: 14, color: RC.ink4),
+                      style: TextStyle(fontSize: 14, color: RC.ink4),
                     ),
                   ],
                 ),
@@ -166,8 +166,8 @@ class _ActiveMedCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('${view.givenTotal} من ${m.totalDoses} جرعة',
-                    style: const TextStyle(fontSize: 13, color: RC.ink4)),
-                Text(_nextLine(), style: const TextStyle(fontSize: 13, color: RC.ink4)),
+                    style: TextStyle(fontSize: 13, color: RC.ink4)),
+                Text(_nextLine(), style: TextStyle(fontSize: 13, color: RC.ink4)),
               ],
             ),
           ] else if (m.isPrn)
@@ -187,7 +187,7 @@ class _ActiveMedCard extends StatelessWidget {
               ),
             )
           else
-            Text(_nextLine(), style: const TextStyle(fontSize: 13.5, color: RC.ink4)),
+            Text(_nextLine(), style: TextStyle(fontSize: 13.5, color: RC.ink4)),
         ],
       ),
     );
@@ -245,14 +245,14 @@ class _EndedMedCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     '${trimDose(m.dose)} ${m.unit} · ${medTypeLabel(m.type)}',
-                    style: const TextStyle(fontSize: 13.5, color: RC.ink4),
+                    style: TextStyle(fontSize: 13.5, color: RC.ink4),
                   ),
                 ],
               ),
             ),
             Text(
               m.endedAt == null ? 'منتهٍ' : 'اكتمل ${shortDayLabel(m.endedAt!)}',
-              style: const TextStyle(fontSize: 13, color: RC.ink3),
+              style: TextStyle(fontSize: 13, color: RC.ink3),
             ),
           ],
         ),

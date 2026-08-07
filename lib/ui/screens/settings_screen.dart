@@ -36,10 +36,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (ctx) => SimpleDialog(
         backgroundColor: RC.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-        title: const Text('ساعة بداية اليوم',
+        title: Text('ساعة بداية اليوم',
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600)),
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.fromLTRB(24, 0, 24, 12),
             child: Text(
               'الرضعات قبل هذه الساعة تُحتسب على اليوم السابق.',
@@ -52,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Row(
                 children: [
                   if (s.dayStartHour == h)
-                    const Icon(Icons.check_rounded, size: 18, color: RC.cyan)
+                    Icon(Icons.check_rounded, size: 18, color: RC.cyan)
                   else
                     const SizedBox(width: 18),
                   const SizedBox(width: 10),
@@ -102,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('إلغاء', style: TextStyle(color: RC.ink3)),
+            child: Text('إلغاء', style: TextStyle(color: RC.ink3)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, int.tryParse(controller.text.trim())),
@@ -191,21 +191,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Text(r.label, style: const TextStyle(fontSize: 16.5)),
                           const SizedBox(height: 1),
                           Text(r.hint,
-                              style: const TextStyle(fontSize: 13, color: RC.ink4)),
+                              style: TextStyle(fontSize: 13, color: RC.ink4)),
                         ],
                       ),
                     ),
                     if (r.value.isNotEmpty)
                       Text(r.value,
-                          style: const TextStyle(fontSize: 15, color: RC.ink3)),
+                          style: TextStyle(fontSize: 15, color: RC.ink3)),
                     const SizedBox(width: 6),
-                    const Icon(Icons.chevron_left_rounded, size: 20, color: RC.ink6),
+                    Icon(Icons.chevron_left_rounded, size: 20, color: RC.ink6),
                   ],
                 ),
               ),
             ),
           const SizedBox(height: 8),
-          const Text(
+          Text('المظهر', style: TextStyle(fontSize: 13, color: RC.ink4)),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              for (var i = 0; i < themeOptions.length; i++) ...[
+                if (i > 0) const SizedBox(width: 8),
+                PillButton(
+                  label: themeOptions[i],
+                  selected: s.theme == themeOptions[i],
+                  expand: true,
+                  onTap: () async {
+                    await s.setTheme(themeOptions[i]);
+                    if (mounted) setState(() {});
+                  },
+                ),
+              ],
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            '«تلقائي» يتبع إعداد النظام ويتبدّل معه فوراً.',
+            style: TextStyle(fontSize: 13, color: RC.ink4),
+          ),
+          const SizedBox(height: 18),
+          Text(
             'الكميات السريعة الافتراضية في ورقة التسجيل',
             style: TextStyle(fontSize: 13, color: RC.ink4),
           ),
@@ -235,7 +259,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'اضغط أي كمية لتعديلها.',
             style: TextStyle(fontSize: 13, color: RC.ink4),
           ),
@@ -255,9 +279,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('النسخة $_version',
-                  style: const TextStyle(fontSize: 15, color: RC.ink3)),
+                  style: TextStyle(fontSize: 15, color: RC.ink3)),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'تطبيق متابعة الرضاعة الصناعية وعلاجات الأطفال. كل البيانات محفوظة '
                 'على هذا الجهاز فقط، ولا تُرسل إلى أي خادم.',
                 style: TextStyle(fontSize: 15, height: 1.7, color: RC.ink2),
@@ -269,7 +293,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   color: RC.magentaWash,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Text(
+                child: Text(
                   'ربى أداة تسجيل ومتابعة ولا تُغني عن طبيب الأطفال. '
                   'الجرعات والمواعيد يحدّدها الطبيب لا التطبيق.',
                   style: TextStyle(fontSize: 14, height: 1.7, color: RC.magentaInk),

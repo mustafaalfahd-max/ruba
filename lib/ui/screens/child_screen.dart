@@ -79,7 +79,7 @@ class _ChildScreenState extends State<ChildScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('إلغاء', style: TextStyle(color: RC.ink3)),
+            child: Text('إلغاء', style: TextStyle(color: RC.ink3)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, double.tryParse(c.text.trim())),
@@ -150,7 +150,7 @@ class _ChildScreenState extends State<ChildScreen> {
                               ));
                         },
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                       PillButton(
                         label: 'يدوي',
                         selected: !_draft.goalAuto,
@@ -160,43 +160,43 @@ class _ChildScreenState extends State<ChildScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 14),
+                  SizedBox(height: 14),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         '${_draft.goalMl}',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 38, fontWeight: FontWeight.w600, color: RC.cyan),
                       ),
-                      const SizedBox(width: 8),
-                      const Text('مل / يوم',
+                      SizedBox(width: 8),
+                      Text('مل / يوم',
                           style: TextStyle(fontSize: 16, color: RC.ink4)),
-                      const Spacer(),
+                      Spacer(),
                       if (!_draft.goalAuto) ...[
                         _round('−', () => setState(() => _draft = _draft.copyWith(
                             goalMl: (_draft.goalMl - 10).clamp(100, 3000)))),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8),
                         _round('+', () => setState(() => _draft = _draft.copyWith(
                             goalMl: (_draft.goalMl + 10).clamp(100, 3000)))),
                       ],
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   Text(
                     _draft.goalAuto
                         ? '${_draft.weightKg ?? 0} كغ × 110 مل = '
                             '${((_draft.weightKg ?? 0) * 110).round()} مل، مقرّبة لأقرب 10. '
                             'يتحدّث تلقائياً عند إضافة قياس وزن جديد.'
                         : 'قيمة يدوية — لن تتغير عند تحديث الوزن.',
-                    style: const TextStyle(fontSize: 14, color: RC.ink3, height: 1.7),
+                    style: TextStyle(fontSize: 14, color: RC.ink3, height: 1.7),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 14),
-            const SectionLabel('جدولة الرضاعة'),
-            const SizedBox(height: 10),
+            SizedBox(height: 14),
+            SectionLabel('جدولة الرضاعة'),
+            SizedBox(height: 10),
             RubaCard(
               shadowOpacity: .09,
               child: Column(
@@ -204,24 +204,24 @@ class _ChildScreenState extends State<ChildScreen> {
                   _tapRow('الفاصل بين الرضعات',
                       '${_draft.intervalMin ~/ 60}:${two(_draft.intervalMin % 60)} ساعة',
                       _pickInterval),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   _tapRow('مهلة التنبيه', '${_draft.reminderLeadMin} دقيقة', _pickLead),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   _tapRow('بداية ساعات الهدوء', _draft.quietFrom, () => _pickQuiet(true)),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   _tapRow('نهاية ساعات الهدوء', _draft.quietTo, () => _pickQuiet(false)),
                 ],
               ),
             ),
-            const SizedBox(height: 14),
-            const SectionLabel('سجل الأوزان'),
-            const SizedBox(height: 10),
+            SizedBox(height: 14),
+            SectionLabel('سجل الأوزان'),
+            SizedBox(height: 10),
             RubaCard(
               shadowOpacity: .09,
               child: Column(
                 children: [
                   if (app.weights.isEmpty)
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 8),
                       child: Text('لا توجد قياسات بعد.',
                           style: TextStyle(fontSize: 15, color: RC.ink4)),
@@ -284,7 +284,7 @@ class _ChildScreenState extends State<ChildScreen> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'ستّ حفاضات مبللة يومياً فأكثر مؤشر معتاد على كفاية الرضاعة. '
                     'راجع الطبيب إن قلّت.',
                     style: TextStyle(fontSize: 13, color: RC.ink4, height: 1.7),
@@ -327,9 +327,9 @@ class _ChildScreenState extends State<ChildScreen> {
             Text(label, style: const TextStyle(fontSize: 16)),
             Row(
               children: [
-                Text(value, style: const TextStyle(fontSize: 16, color: RC.ink3)),
+                Text(value, style: TextStyle(fontSize: 16, color: RC.ink3)),
                 const SizedBox(width: 4),
-                const Icon(Icons.chevron_left_rounded, size: 20, color: RC.ink6),
+                Icon(Icons.chevron_left_rounded, size: 20, color: RC.ink6),
               ],
             ),
           ],
@@ -341,7 +341,7 @@ class _ChildScreenState extends State<ChildScreen> {
           Text(value,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
           const SizedBox(height: 3),
-          Text(label, style: const TextStyle(fontSize: 13, color: RC.ink4)),
+          Text(label, style: TextStyle(fontSize: 13, color: RC.ink4)),
         ],
       );
 

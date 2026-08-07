@@ -1,4 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+/// خيارات المظهر الثلاثة كما في التصميم.
+const themeLight = 'فاتح';
+const themeDark = 'داكن';
+const themeAuto = 'تلقائي';
+const themeOptions = [themeLight, themeDark, themeAuto];
 
 /// التفضيلات العامة — كل ما ليس بياناتِ طفلٍ بعينه.
 class Settings {
@@ -10,7 +17,11 @@ class Settings {
 
   static Future<void> init() async {
     I = Settings._(await SharedPreferences.getInstance());
+    I.themeNotifier.value = I.theme;
   }
+
+  /// يُبنى عليه أعلى الشجرة، فتغيير المظهر يعيد بناء التطبيق كله فوراً.
+  final themeNotifier = ValueNotifier<String>(themeLight);
 
   static const _kWelcomeDone = 'welcome_done';
   static const _kDayStartHour = 'day_start_hour';
@@ -29,8 +40,15 @@ class Settings {
   int get dayStartHour => _p.getInt(_kDayStartHour) ?? 6;
   Future<void> setDayStartHour(int v) => _p.setInt(_kDayStartHour, v);
 
-  String get theme => _p.getString(_kTheme) ?? 'فاتح';
-  Future<void> setTheme(String v) => _p.setString(_kTheme, v);
+  String get theme {
+    final v = _p.getString(_kTheme);
+    return themeOptions.contains(v) ? v! : themeLight;
+  }
+
+  Future<void> setTheme(String v) async {
+    await _p.setString(_kTheme, v);
+    themeNotifier.value = v;
+  }
 
   List<int> get quickMl {
     final raw = _p.getStringList(_kQuickMl);

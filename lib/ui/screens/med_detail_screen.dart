@@ -43,10 +43,10 @@ class MedDetailScreen extends StatelessWidget {
             MaterialPageRoute(builder: (_) => MedFormScreen(existing: m)),
           ),
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 28),
+            padding: EdgeInsets.fromLTRB(16, 14, 16, 28),
             children: [
               RubaCard(
-                padding: const EdgeInsets.all(18),
+                padding: EdgeInsets.all(18),
                 shadowOpacity: .09,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,34 +56,34 @@ class MedDetailScreen extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('الالتزام الإجمالي',
+                        Text('الالتزام الإجمالي',
                             style: TextStyle(fontSize: 15, color: RC.ink4)),
                         Text(
                           '${view.adherencePct}%',
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 34, fontWeight: FontWeight.w600, color: RC.cyan),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     ThinBar(value: view.adherencePct / 100, height: 7),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     Text(
                       _meta(m, view),
-                      style: const TextStyle(fontSize: 14.5, color: RC.ink3, height: 1.6),
+                      style: TextStyle(fontSize: 14.5, color: RC.ink3, height: 1.6),
                     ),
                   ],
                 ),
               ),
               if ((m.note ?? '').isNotEmpty) ...[
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
                 RubaCard(
                   shadowOpacity: .07,
                   child: Text(m.note!,
-                      style: const TextStyle(fontSize: 15, color: RC.ink3, height: 1.7)),
+                      style: TextStyle(fontSize: 15, color: RC.ink3, height: 1.7)),
                 ),
               ],
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               Row(
                 children: [
                   Expanded(
@@ -99,7 +99,7 @@ class MedDetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Expanded(
                     child: GhostButton(
                       label: m.remind ? 'إيقاف التذكير' : 'استئناف التذكير',
@@ -116,7 +116,7 @@ class MedDetailScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Expanded(
                     child: GhostButton(
                       label: m.ended ? 'إعادة تفعيل' : 'إنهاء',
@@ -147,9 +147,9 @@ class MedDetailScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 18),
-              const SectionLabel('سجل الجرعات'),
-              const SizedBox(height: 10),
+              SizedBox(height: 18),
+              SectionLabel('سجل الجرعات'),
+              SizedBox(height: 10),
               _DoseLog(medId: medId),
             ],
           ),
@@ -192,7 +192,7 @@ class _DoseLog extends StatelessWidget {
         }
         final doses = snap.data!;
         if (doses.isEmpty) {
-          return const Padding(
+          return Padding(
             padding: EdgeInsets.symmetric(vertical: 22),
             child: Text(
               'لم تُسجَّل أي جرعة بعد.',
@@ -243,7 +243,7 @@ class _DoseLog extends StatelessWidget {
           const SizedBox(width: 12),
           SizedBox(
             width: 88,
-            child: Text(dayLabel, style: const TextStyle(fontSize: 15, color: RC.ink4)),
+            child: Text(dayLabel, style: TextStyle(fontSize: 15, color: RC.ink4)),
           ),
           Expanded(
             child: Text(

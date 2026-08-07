@@ -27,7 +27,7 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     // العدّاد التنازلي يتحدّث كل ثانية؛ بقية الشاشة تُعاد بناءً على AppState.
-    _ticker = Timer.periodic(const Duration(seconds: 1), (_) {
+    _ticker = Timer.periodic(Duration(seconds: 1), (_) {
       if (mounted) setState(() {});
     });
   }
@@ -49,7 +49,7 @@ class _HomeTabState extends State<HomeTab> {
     if (app.current == null) return const SizedBox.shrink();
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 110),
+      padding: EdgeInsets.fromLTRB(16, 12, 16, 110),
       children: [
         Center(
           child: ProgressRing(
@@ -60,47 +60,47 @@ class _HomeTabState extends State<HomeTab> {
             sub: '${app.totalToday} من ${app.goalToday}',
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.opacity_rounded, size: 18, color: RC.cyan),
-            const SizedBox(width: 8),
+            Icon(Icons.opacity_rounded, size: 18, color: RC.cyan),
+            SizedBox(width: 8),
             Flexible(
               child: Text(
                 app.splitLine,
-                style: const TextStyle(fontSize: 15, color: RC.ink3),
+                style: TextStyle(fontSize: 15, color: RC.ink3),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
-        const _NextFeedCard(),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
+        _NextFeedCard(),
+        SizedBox(height: 12),
         if (app.nextDose != null) ...[
           _NextDoseCard(dose: app.nextDose!),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
         ],
         Padding(
-          padding: const EdgeInsets.fromLTRB(2, 8, 2, 0),
+          padding: EdgeInsets.fromLTRB(2, 8, 2, 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
             textBaseline: TextBaseline.alphabetic,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('قائمة اليوم',
+              Text('قائمة اليوم',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
               Text(
                 '${feedsCountLabel(app.todayFeeds.length)} · '
                 '${dosesCountLabel(app.doseCountToday)}',
-                style: const TextStyle(fontSize: 13, color: RC.ink4),
+                style: TextStyle(fontSize: 13, color: RC.ink4),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10),
         if (app.timeline.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 26),
             child: Text(
               'لم تُسجَّل أي رضعة اليوم بعد — اضغط زر «+».',
@@ -138,14 +138,14 @@ class _NextFeedCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.child_care_rounded, size: 26, color: RC.cyan),
+              Icon(Icons.child_care_rounded, size: 26, color: RC.cyan),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     late ? 'تأخّرت الرضعة' : 'الرضعة القادمة',
-                    style: const TextStyle(fontSize: 13, color: RC.ink4),
+                    style: TextStyle(fontSize: 13, color: RC.ink4),
                   ),
                   Text(
                     hhmm(next),
@@ -160,7 +160,7 @@ class _NextFeedCard extends StatelessWidget {
             children: [
               Text(
                 late ? 'متأخرة منذ' : 'بعد',
-                style: const TextStyle(fontSize: 12, color: RC.ink4),
+                style: TextStyle(fontSize: 12, color: RC.ink4),
               ),
               Text(
                 countdownLabel(diff),
@@ -195,7 +195,7 @@ class _NextDoseCard extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                const Icon(Icons.medication_rounded, size: 26, color: RC.magenta),
+                Icon(Icons.medication_rounded, size: 26, color: RC.magenta),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -209,7 +209,7 @@ class _NextDoseCard extends StatelessWidget {
                       ),
                       Text(
                         '${trimDose(med.dose)} ${med.unit} · ${hhmm(dose.at)}',
-                        style: const TextStyle(fontSize: 14, color: RC.ink4),
+                        style: TextStyle(fontSize: 14, color: RC.ink4),
                       ),
                     ],
                   ),
@@ -220,11 +220,11 @@ class _NextDoseCard extends StatelessWidget {
           const SizedBox(width: 10),
           Material(
             color: RC.cyanWash,
-            shape: const CircleBorder(side: BorderSide(color: RC.cyan, width: 1.5)),
+            shape: CircleBorder(side: BorderSide(color: RC.cyan, width: 1.5)),
             child: InkWell(
               customBorder: const CircleBorder(),
               onTap: () => showDoseDialog(context, view: dose.view, scheduledAt: dose.at),
-              child: const SizedBox(
+              child: SizedBox(
                 width: 48,
                 height: 48,
                 child: Icon(Icons.check_rounded, size: 24, color: RC.cyanDark),

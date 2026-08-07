@@ -9,7 +9,7 @@ class RubaCard extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.all(16),
     this.radius = 20,
-    this.color = RC.card,
+    this.color,
     this.shadowOpacity = .10,
     this.onTap,
     this.outline,
@@ -18,7 +18,10 @@ class RubaCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets padding;
   final double radius;
-  final Color color;
+
+  /// فارغ يعني لون البطاقة الافتراضي — لا يمكن أن يكون قيمة افتراضية
+  /// في بانٍ const لأنه يتغيّر مع الوضع الداكن.
+  final Color? color;
   final double shadowOpacity;
   final VoidCallback? onTap;
   final Color? outline;
@@ -28,7 +31,7 @@ class RubaCard extends StatelessWidget {
     final box = Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: color,
+        color: color ?? RC.card,
         borderRadius: BorderRadius.circular(radius),
         boxShadow: RC.shadow(shadowOpacity),
         border: outline == null ? null : Border.all(color: outline!, width: 1.5),
@@ -59,7 +62,7 @@ class SectionLabel extends StatelessWidget {
         padding: padding,
         child: Text(
           text,
-          style: const TextStyle(fontSize: 13, letterSpacing: 1.8, color: RC.ink4),
+          style: TextStyle(fontSize: 13, letterSpacing: 1.8, color: RC.ink4),
         ),
       );
 }
@@ -94,7 +97,7 @@ class PillButton extends StatelessWidget {
           // مع alignment غير فارغ يتمدّد Container ليملأ المتاح، وهو مطلوب
           // داخل Expanded فقط. في Wrap نتركه فارغاً ليأخذ الزر عرض نصّه.
           alignment: expand ? Alignment.center : null,
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             border: Border.all(
@@ -135,16 +138,16 @@ class RubaSwitch extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () => onChanged(!value),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: Duration(milliseconds: 200),
           width: 50,
           height: 30,
-          padding: const EdgeInsets.all(3),
+          padding: EdgeInsets.all(3),
           decoration: BoxDecoration(
             color: value ? RC.cyan : RC.line,
             borderRadius: BorderRadius.circular(15),
           ),
           child: AnimatedAlign(
-            duration: const Duration(milliseconds: 200),
+            duration: Duration(milliseconds: 200),
             curve: Curves.easeOutCubic,
             // الاتجاه من اليمين لليسار: المقبض يتحرك يساراً عند التفعيل.
             alignment: value ? Alignment.centerLeft : Alignment.centerRight,
@@ -158,7 +161,7 @@ class RubaSwitch extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black.withValues(alpha: .25),
                     blurRadius: 3,
-                    offset: const Offset(0, 1),
+                    offset: Offset(0, 1),
                   ),
                 ],
               ),
@@ -176,7 +179,7 @@ class PrimaryButton extends StatelessWidget {
     required this.onTap,
     this.height = 56,
     this.fontSize = 19,
-    this.color = RC.cyan,
+    this.color,
     this.icon,
   });
 
@@ -184,7 +187,7 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback? onTap;
   final double height;
   final double fontSize;
-  final Color color;
+  final Color? color;
   final IconData? icon;
 
   @override
@@ -197,7 +200,7 @@ class PrimaryButton extends StatelessWidget {
             boxShadow: onTap == null ? null : RC.lift(10, .30),
           ),
           child: Material(
-            color: onTap == null ? RC.line : color,
+            color: onTap == null ? RC.line : (color ?? RC.cyan),
             borderRadius: BorderRadius.circular(height / 2),
             child: InkWell(
               onTap: onTap,
@@ -209,7 +212,7 @@ class PrimaryButton extends StatelessWidget {
                   children: [
                     if (icon != null) ...[
                       Icon(icon, size: 21, color: Colors.white),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                     ],
                     Flexible(
                       child: FittedBox(
@@ -242,8 +245,8 @@ class GhostButton extends StatelessWidget {
     required this.label,
     required this.onTap,
     this.dashed = false,
-    this.color = RC.cyan,
-    this.textColor = RC.cyanDark,
+    this.color,
+    this.textColor,
     this.height = 52,
     this.fontSize = 16,
     this.icon,
@@ -252,22 +255,24 @@ class GhostButton extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
   final bool dashed;
-  final Color color;
-  final Color textColor;
+  final Color? color;
+  final Color? textColor;
   final double height;
   final double fontSize;
   final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
+    final edge = color ?? RC.cyan;
+    final ink = textColor ?? RC.cyanDark;
     final content = Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 21, color: textColor),
-            const SizedBox(width: 8),
+            Icon(icon, size: 21, color: ink),
+            SizedBox(width: 8),
           ],
           Flexible(
             child: FittedBox(
@@ -276,7 +281,7 @@ class GhostButton extends StatelessWidget {
                 label,
                 maxLines: 1,
                 softWrap: false,
-                style: TextStyle(fontSize: fontSize, color: textColor),
+                style: TextStyle(fontSize: fontSize, color: ink),
               ),
             ),
           ),
@@ -294,7 +299,7 @@ class GhostButton extends StatelessWidget {
           child: dashed
               ? CustomPaint(
                   painter: _DashedBorderPainter(
-                    color: color.withValues(alpha: .45),
+                    color: edge.withValues(alpha: .45),
                     radius: height / 2,
                   ),
                   child: content,
@@ -302,7 +307,7 @@ class GhostButton extends StatelessWidget {
               : Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(height / 2),
-                    border: Border.all(color: color, width: 1.5),
+                    border: Border.all(color: edge, width: 1.5),
                   ),
                   child: content,
                 ),
@@ -356,12 +361,12 @@ class KeyValueRow extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(fontSize: 16, color: RC.ink4)),
+          Text(label, style: TextStyle(fontSize: 16, color: RC.ink4)),
           Flexible(
             child: Text(
               value,
               textAlign: TextAlign.end,
-              style: valueStyle ?? const TextStyle(fontSize: 16, color: RC.ink),
+              style: valueStyle ?? TextStyle(fontSize: 16, color: RC.ink),
             ),
           ),
         ],
@@ -403,7 +408,7 @@ class FilledField extends StatelessWidget {
           style: TextStyle(fontSize: fontSize, color: RC.ink),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: RC.ghost),
+            hintStyle: TextStyle(color: RC.ghost),
             contentPadding: const EdgeInsets.symmetric(vertical: 14),
             border: InputBorder.none,
           ),
@@ -438,7 +443,7 @@ class UnderlineField extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: const TextStyle(fontSize: 14, color: RC.ink4)),
+          Text(label, style: TextStyle(fontSize: 14, color: RC.ink4)),
           const SizedBox(height: 2),
           Container(
             decoration: const BoxDecoration(
@@ -457,14 +462,14 @@ class UnderlineField extends StatelessWidget {
                     style: TextStyle(fontSize: fontSize, color: RC.ink),
                     decoration: InputDecoration(
                       hintText: hint,
-                      hintStyle: const TextStyle(color: RC.ghost),
+                      hintStyle: TextStyle(color: RC.ghost),
                       contentPadding: const EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
                     ),
                   ),
                 ),
                 if (suffix != null)
-                  Text(suffix!, style: const TextStyle(fontSize: 15, color: RC.ink4)),
+                  Text(suffix!, style: TextStyle(fontSize: 15, color: RC.ink4)),
               ],
             ),
           ),
@@ -536,12 +541,12 @@ void flash(BuildContext context, String message) {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         content: Row(
           children: [
-            const Icon(Icons.check_circle_rounded, size: 20, color: RC.toastIcon),
+            Icon(Icons.check_circle_rounded, size: 20, color: RC.toastIcon),
             const SizedBox(width: 9),
             Expanded(
               child: Text(
                 message,
-                style: const TextStyle(fontSize: 15.5, color: RC.toastInk),
+                style: TextStyle(fontSize: 15.5, color: RC.toastInk),
               ),
             ),
           ],
@@ -556,23 +561,24 @@ Future<bool> confirm(
   required String title,
   required String message,
   String confirmLabel = 'متابعة',
-  Color confirmColor = RC.cyan,
+  Color? confirmColor,
 }) async {
+  final accent = confirmColor ?? RC.cyan;
   final r = await showDialog<bool>(
     context: context,
     builder: (ctx) => AlertDialog(
       backgroundColor: RC.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       title: Text(title, style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w600)),
-      content: Text(message, style: const TextStyle(fontSize: 16, height: 1.7, color: RC.ink3)),
+      content: Text(message, style: TextStyle(fontSize: 16, height: 1.7, color: RC.ink3)),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(ctx, false),
-          child: const Text('إلغاء', style: TextStyle(color: RC.ink3, fontSize: 16)),
+          child: Text('إلغاء', style: TextStyle(color: RC.ink3, fontSize: 16)),
         ),
         TextButton(
           onPressed: () => Navigator.pop(ctx, true),
-          child: Text(confirmLabel, style: TextStyle(color: confirmColor, fontSize: 16)),
+          child: Text(confirmLabel, style: TextStyle(color: accent, fontSize: 16)),
         ),
       ],
     ),

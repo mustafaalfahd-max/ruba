@@ -32,7 +32,7 @@ class ProgressRing extends StatelessWidget {
           children: [
             TweenAnimationBuilder<double>(
               tween: Tween(begin: 0, end: value.clamp(0.0, 1.0)),
-              duration: const Duration(milliseconds: 600),
+              duration: Duration(milliseconds: 600),
               curve: Curves.easeOutCubic,
               builder: (_, v, __) => CustomPaint(
                 size: Size.square(size),
@@ -44,15 +44,15 @@ class ProgressRing extends StatelessWidget {
               children: [
                 Text(
                   kicker,
-                  style: const TextStyle(fontSize: 13, color: RC.ink4, letterSpacing: .6),
+                  style: TextStyle(fontSize: 13, color: RC.ink4, letterSpacing: .6),
                 ),
-                const SizedBox(height: 3),
+                SizedBox(height: 3),
                 Text(
                   big,
-                  style: const TextStyle(fontSize: 44, fontWeight: FontWeight.w600, height: 1),
+                  style: TextStyle(fontSize: 44, fontWeight: FontWeight.w600, height: 1),
                 ),
-                const SizedBox(height: 3),
-                Text(sub, style: const TextStyle(fontSize: 16, color: RC.ink3)),
+                SizedBox(height: 3),
+                Text(sub, style: TextStyle(fontSize: 16, color: RC.ink3)),
               ],
             ),
           ],
@@ -129,7 +129,7 @@ class DailyBars extends StatelessWidget {
             right: 0,
             bottom: 22 + (goal / top) * barsArea,
             child: CustomPaint(
-              size: const Size(double.infinity, 1.5),
+              size: Size(double.infinity, 1.5),
               painter: _DashedLinePainter(RC.magenta.withValues(alpha: .65)),
             ),
           ),
@@ -147,28 +147,28 @@ class DailyBars extends StatelessWidget {
                       children: [
                         TweenAnimationBuilder<double>(
                           tween: Tween(begin: 0, end: (b.value / top) * barsArea),
-                          duration: const Duration(milliseconds: 450),
+                          duration: Duration(milliseconds: 450),
                           curve: Curves.easeOutCubic,
                           builder: (_, h, __) => Container(
                             width: width,
                             height: h,
                             decoration: BoxDecoration(
                               color: b.value >= goal ? RC.cyan : RC.cyanPale,
-                              borderRadius: const BorderRadius.vertical(
+                              borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(6),
                                 bottom: Radius.circular(2),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 6),
                         SizedBox(
                           height: 16,
                           child: Text(
                             b.label,
                             maxLines: 1,
                             overflow: TextOverflow.clip,
-                            style: const TextStyle(fontSize: 11, color: RC.ink4),
+                            style: TextStyle(fontSize: 11, color: RC.ink4),
                           ),
                         ),
                       ],
@@ -219,7 +219,7 @@ class WeightCurve extends StatelessWidget {
         height: height,
         width: double.infinity,
         child: values.length < 2
-            ? const Center(
+            ? Center(
                 child: Text(
                   'أضف قياسين على الأقل ليظهر المنحنى',
                   style: TextStyle(fontSize: 14, color: RC.ink4),
@@ -276,15 +276,15 @@ class ThinBar extends StatelessWidget {
   const ThinBar({
     super.key,
     required this.value,
-    this.color = RC.cyan,
+    this.color,
     this.height = 6,
-    this.track = RC.muted,
+    this.track,
   });
 
   final double value;
-  final Color color;
+  final Color? color;
   final double height;
-  final Color track;
+  final Color? track;
 
   @override
   Widget build(BuildContext context) => ClipRRect(
@@ -292,8 +292,8 @@ class ThinBar extends StatelessWidget {
         child: LinearProgressIndicator(
           value: value.clamp(0.0, 1.0),
           minHeight: height,
-          backgroundColor: track,
-          valueColor: AlwaysStoppedAnimation(color),
+          backgroundColor: track ?? RC.muted,
+          valueColor: AlwaysStoppedAnimation(color ?? RC.cyan),
         ),
       );
 }

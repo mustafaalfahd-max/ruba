@@ -17,7 +17,8 @@ Future<void> openFeedSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      barrierColor: RC.ink.withValues(alpha: .38),
+      // حجاب أسود ثابت — RC.ink يصبح فاتحاً في الوضع الداكن فيبيّض الشاشة.
+      barrierColor: Colors.black.withValues(alpha: .38),
       builder: (_) => _FeedSheet(existing: existing, initialAt: initialAt),
     );
 
@@ -105,11 +106,11 @@ class _FeedSheetState extends State<_FeedSheet> {
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: RC.surface,
           borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
         ),
-        padding: const EdgeInsets.fromLTRB(18, 12, 18, 20),
+        padding: EdgeInsets.fromLTRB(18, 12, 18, 20),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -125,7 +126,7 @@ class _FeedSheetState extends State<_FeedSheet> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
@@ -133,16 +134,16 @@ class _FeedSheetState extends State<_FeedSheet> {
                 children: [
                   Text(
                     _isEdit ? 'تعديل الرضعة' : 'تسجيل رضعة',
-                    style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text('إلغاء',
+                    child: Text('إلغاء',
                         style: TextStyle(color: RC.ink4, fontSize: 15)),
                   ),
                 ],
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Row(
                 children: [
                   for (var i = 0; i < quick.length; i++) ...[
@@ -156,7 +157,7 @@ class _FeedSheetState extends State<_FeedSheet> {
                   ],
                 ],
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -172,15 +173,15 @@ class _FeedSheetState extends State<_FeedSheet> {
                       fontFeatures: tabular.fontFeatures,
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  const Text('مل', style: TextStyle(fontSize: 19, color: RC.ink4)),
+                  SizedBox(width: 8),
+                  Text('مل', style: TextStyle(fontSize: 19, color: RC.ink4)),
                 ],
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 childAspectRatio: 2.2,
@@ -195,8 +196,8 @@ class _FeedSheetState extends State<_FeedSheet> {
                         borderRadius: BorderRadius.circular(16),
                         child: Center(
                           child: k == '⌫'
-                              ? const Icon(Icons.backspace_outlined, size: 21, color: RC.ink)
-                              : Text(k, style: const TextStyle(fontSize: 23, color: RC.ink)),
+                              ? Icon(Icons.backspace_outlined, size: 21, color: RC.ink)
+                              : Text(k, style: TextStyle(fontSize: 23, color: RC.ink)),
                         ),
                       ),
                     ),
@@ -212,7 +213,7 @@ class _FeedSheetState extends State<_FeedSheet> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Row(
+                    Row(
                       children: [
                         Icon(Icons.schedule_rounded, size: 21, color: RC.cyan),
                         SizedBox(width: 9),
@@ -243,7 +244,7 @@ class _FeedSheetState extends State<_FeedSheet> {
                     size: 18,
                     color: RC.cyanDark,
                   ),
-                  label: const Text('ملاحظة',
+                  label: Text('ملاحظة',
                       style: TextStyle(color: RC.cyanDark, fontSize: 15)),
                 ),
               ),

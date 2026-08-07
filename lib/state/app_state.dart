@@ -102,7 +102,7 @@ class AppState extends ChangeNotifier {
 
   /// رمادي عند الصفر، يتشبّع نحو التركوازي مع التقدّم، وذهبي عند بلوغ الهدف.
   Color get ringColor =>
-      goalReached ? RC.gold : Color.lerp(const Color(0xFFB8B4B4), RC.cyan, pct)!;
+      goalReached ? RC.gold : Color.lerp(RC.ringStart, RC.cyan, pct)!;
 
   DateTime? get lastFeedAt => todayFeeds.isEmpty ? null : todayFeeds.last.at;
 

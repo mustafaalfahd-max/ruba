@@ -19,7 +19,8 @@ Future<void> showDoseDialog(
 }) =>
     showDialog<void>(
       context: context,
-      barrierColor: RC.ink.withValues(alpha: .42),
+      // حجاب أسود ثابت — RC.ink يصبح فاتحاً في الوضع الداكن فيبيّض الشاشة.
+      barrierColor: Colors.black.withValues(alpha: .42),
       builder: (_) => _DoseDialog(view: view, scheduledAt: scheduledAt),
     );
 
@@ -121,13 +122,13 @@ class _DoseDialogState extends State<_DoseDialog> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.warning_amber_rounded,
+                    Icon(Icons.warning_amber_rounded,
                         size: 22, color: RC.magentaDark),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
                         _warning,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 15, height: 1.7, color: RC.magentaInk),
                       ),
                     ),

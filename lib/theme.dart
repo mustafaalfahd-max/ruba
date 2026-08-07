@@ -1,55 +1,74 @@
 import 'package:flutter/material.dart';
 
-/// ألوان التصميم كما وردت في مشروع Claude Design.
-/// أي لون جديد يُضاف هنا لا في أماكن متفرقة، حتى يبقى الوضع الداكن قابلاً للتنفيذ لاحقاً من مكان واحد.
+/// لوحة ألوان «ربى» بنسختيها الفاتحة والداكنة.
+///
+/// كلها getters لا ثوابت، لأن قيمتها تعتمد على [RC.dark] الذي يُضبط مرة واحدة
+/// في أعلى الشجرة قبل بناء أي شاشة. هذا يعني أن أي `const` يستعمل لوناً من هنا
+/// لن يُصرَّف — وهو المطلوب، فاللون لم يعد ثابتاً.
 class RC {
   RC._();
 
-  // الأساسيات
-  static const paper = Color(0xFFF3F2F2); // خلفية التطبيق
-  static const ink = Color(0xFF201E1D); // النص الأساسي
-  static const cyan = Color(0xFF0088B0); // اللون الأساسي — الرضاعة
-  static const cyanDark = Color(0xFF006786);
-  static const cyanWash = Color(0xFFE9F8FF);
-  static const cyanPale = Color(0xFF99E0FF);
-  static const magenta = Color(0xFFD6006C); // العلاجات
-  static const magentaDark = Color(0xFFAA0B56);
-  static const magentaInk = Color(0xFF790E3D);
-  static const magentaWash = Color(0xFFFFF1F4);
-  static const magentaPale = Color(0xFFFFC0D0);
-  static const amber = Color(0xFFB07D00); // التأخير
-  static const amberLine = Color(0xFFEDBB00);
-  static const amberInk = Color(0xFF8A6100);
-  static const amberWash = Color(0xFFFFF8E6);
-  static const gold = Color(0xFFC79A1A); // بلوغ الهدف
+  /// يُضبط من [RubaApp] حسب اختيار المستخدم أو سطوع النظام.
+  static bool dark = false;
 
-  // الأسطح
-  static const card = Color(0xFFFFFFFF);
-  static const surface = Color(0xFFF8F4F4); // شريط التبويبات والأوراق السفلية
-  static const muted = Color(0xFFEAE7E7);
-  static const mutedDeep = Color(0xFFEAE9E9);
-  static const track = Color(0xFFE2DFDF); // مسار حلقة التقدم
-  static const line = Color(0xFFD7D3D3);
+  static Color _p(int light, int darkValue) => Color(dark ? darkValue : light);
 
-  // درجات النص
-  static const ink2 = Color(0xFF444141);
-  static const ink3 = Color(0xFF605D5D);
-  static const ink4 = Color(0xFF7D7979);
-  static const ink5 = Color(0xFF8D8989);
-  static const ink6 = Color(0xFF9B9797);
-  static const ink7 = Color(0xFFBAB6B6);
-  static const ghost = Color(0xFFC4C0C0);
+  // ── الأساسيات ──────────────────────────────────────────────────────────────
+  static Color get paper => _p(0xFFF3F2F2, 0xFF141313); // خلفية التطبيق
+  static Color get ink => _p(0xFF201E1D, 0xFFF0EDEC); // النص الأساسي
 
-  static const toastBg = Color(0xFF2D2B2B);
-  static const toastInk = Color(0xFFF8F4F4);
-  static const toastIcon = Color(0xFF62C5EE);
+  static Color get cyan => _p(0xFF0088B0, 0xFF33ACD1); // الرضاعة
+  static Color get cyanDark => _p(0xFF006786, 0xFF8AD6F0); // نص على خلفية تركوازية باهتة
+  static Color get cyanWash => _p(0xFFE9F8FF, 0xFF10323E);
+  static Color get cyanPale => _p(0xFF99E0FF, 0xFF2E6E86);
 
-  static Color hair(double o) => const Color(0xFF201E1D).withValues(alpha: o);
+  static Color get magenta => _p(0xFFD6006C, 0xFFFF5C9E); // العلاجات
+  static Color get magentaDark => _p(0xFFAA0B56, 0xFFFF85B4);
+  static Color get magentaInk => _p(0xFF790E3D, 0xFFFFC7DC);
+  static Color get magentaWash => _p(0xFFFFF1F4, 0xFF3A1225);
+  static Color get magentaPale => _p(0xFFFFC0D0, 0xFF5C2038);
 
-  /// ظل البطاقات في التصميم: 0 1px 2px rgba(45,43,43,.10)
+  static Color get amber => _p(0xFFB07D00, 0xFFE0A93A); // التأخير
+  static Color get amberLine => _p(0xFFEDBB00, 0xFFC9A227);
+  static Color get amberInk => _p(0xFF8A6100, 0xFFE8C77A);
+  static Color get amberWash => _p(0xFFFFF8E6, 0xFF3A2F12);
+  static Color get gold => _p(0xFFC79A1A, 0xFFE0B93A); // بلوغ الهدف
+
+  // ── الأسطح ─────────────────────────────────────────────────────────────────
+  static Color get card => _p(0xFFFFFFFF, 0xFF232120);
+  static Color get surface => _p(0xFFF8F4F4, 0xFF1B1A19); // التبويبات والأوراق السفلية
+  static Color get muted => _p(0xFFEAE7E7, 0xFF2C2A29);
+  static Color get mutedDeep => _p(0xFFEAE9E9, 0xFF262423);
+  static Color get track => _p(0xFFE2DFDF, 0xFF2F2C2C); // مسار حلقة التقدم
+  static Color get line => _p(0xFFD7D3D3, 0xFF3A3736);
+
+  /// الرمادي الذي تبدأ منه حلقة التقدم قبل أن تتشبّع نحو التركوازي.
+  static Color get ringStart => _p(0xFFB8B4B4, 0xFF4E4B4A);
+
+  // ── درجات النص ─────────────────────────────────────────────────────────────
+  static Color get ink2 => _p(0xFF444141, 0xFFD6D2D1);
+  static Color get ink3 => _p(0xFF605D5D, 0xFFB8B4B3);
+  static Color get ink4 => _p(0xFF7D7979, 0xFF948F8E);
+  static Color get ink5 => _p(0xFF8D8989, 0xFF8A8584);
+  static Color get ink6 => _p(0xFF9B9797, 0xFF7A7574);
+  static Color get ink7 => _p(0xFFBAB6B6, 0xFF5E5A59);
+  static Color get ghost => _p(0xFFC4C0C0, 0xFF4A4645);
+
+  static Color get toastBg => _p(0xFF2D2B2B, 0xFF3A3736);
+  static Color get toastInk => _p(0xFFF8F4F4, 0xFFF3F2F2);
+  static Color get toastIcon => _p(0xFF62C5EE, 0xFF8AD6F0);
+
+  /// خطوط الفصل الشعرية — داكنة على الفاتح وفاتحة على الداكن.
+  static Color hair(double o) =>
+      (dark ? const Color(0xFFF0EDEC) : const Color(0xFF201E1D)).withValues(alpha: o);
+
+  /// ظل البطاقات. في الوضع الداكن الظلال شبه غير مرئية، فنعمّقها قليلاً
+  /// كي تبقى حواف البطاقات محسوسة.
   static List<BoxShadow> shadow([double o = .10]) => [
         BoxShadow(
-          color: const Color(0xFF2D2B2B).withValues(alpha: o),
+          color: dark
+              ? Colors.black.withValues(alpha: o * 3.2)
+              : const Color(0xFF2D2B2B).withValues(alpha: o),
           blurRadius: 2,
           offset: const Offset(0, 1),
         ),
@@ -57,7 +76,9 @@ class RC {
 
   static List<BoxShadow> lift(double blur, double o, [double dy = 3]) => [
         BoxShadow(
-          color: const Color(0xFF2D2B2B).withValues(alpha: o),
+          color: dark
+              ? Colors.black.withValues(alpha: o * 1.6)
+              : const Color(0xFF2D2B2B).withValues(alpha: o),
           blurRadius: blur,
           offset: Offset(0, dy),
         ),
@@ -67,17 +88,20 @@ class RC {
 /// ثيم التطبيق. الخط متروك لخط النظام — أندرويد يستخدم Noto Naskh Arabic
 /// وهو نفس خط التصميم، فلا داعي لتضمين ملف خط وزيادة حجم الحزمة.
 ThemeData buildRubaTheme() {
-  const base = TextStyle(color: RC.ink, height: 1.35);
+  final base = TextStyle(color: RC.ink, height: 1.35);
+  final brightness = RC.dark ? Brightness.dark : Brightness.light;
   return ThemeData(
     useMaterial3: true,
+    brightness: brightness,
     scaffoldBackgroundColor: RC.paper,
     colorScheme: ColorScheme.fromSeed(
       seedColor: RC.cyan,
       primary: RC.cyan,
       surface: RC.paper,
-      brightness: Brightness.light,
+      brightness: brightness,
     ),
     splashFactory: InkRipple.splashFactory,
+    dialogTheme: DialogThemeData(backgroundColor: RC.surface),
     textTheme: TextTheme(
       displayLarge: base.copyWith(fontSize: 76, fontWeight: FontWeight.w600, height: .9),
       headlineLarge: base.copyWith(fontSize: 28, fontWeight: FontWeight.w600),

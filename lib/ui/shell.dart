@@ -53,9 +53,11 @@ class _ShellState extends State<Shell> {
                 Expanded(
                   child: child == null
                       ? const _EmptyState()
+                      // بلا const: نُسخة const واحدة تعني أن Flutter يتخطّى
+                      // إعادة بناء التبويبات عند تغيّر الثيم أو الحالة.
                       : IndexedStack(
                           index: _tab,
-                          children: const [
+                          children: [
                             HomeTab(),
                             HistoryTab(),
                             MedsTab(),
@@ -171,7 +173,7 @@ class _TopBar extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   longDayLabel(DateTime.now()),
-                  style: const TextStyle(fontSize: 12.5, color: RC.ink4),
+                  style: TextStyle(fontSize: 12.5, color: RC.ink4),
                 ),
               ],
             ),
@@ -197,7 +199,7 @@ class _TopBar extends StatelessWidget {
                   const SizedBox(width: 6),
                   IconButton(
                     onPressed: onSettings,
-                    icon: const Icon(Icons.settings_rounded, size: 22, color: RC.ink2),
+                    icon: Icon(Icons.settings_rounded, size: 22, color: RC.ink2),
                     tooltip: 'الإعدادات',
                     constraints: const BoxConstraints.tightFor(width: 34, height: 34),
                     padding: EdgeInsets.zero,
@@ -273,7 +275,7 @@ class _DashedAvatar extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: RC.hair(.22), width: 1.5),
             ),
-            child: const Icon(Icons.add_rounded, size: 18, color: RC.ink4),
+            child: Icon(Icons.add_rounded, size: 18, color: RC.ink4),
           ),
         ),
       );
@@ -289,14 +291,14 @@ class _EmptyState extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.child_care_rounded, size: 48, color: RC.ink7),
+              Icon(Icons.child_care_rounded, size: 48, color: RC.ink7),
               const SizedBox(height: 14),
               const Text(
                 'لا يوجد طفل بعد',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'أضف طفلاً من زر «+» في الأعلى لتبدأ التسجيل.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: RC.ink4, height: 1.7),

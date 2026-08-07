@@ -3,7 +3,7 @@ description: "ربى — تطبيق متابعة الرضاعة الصناعية
 publish_to: 'none'
 
 # النسخة تُقرأ داخل التطبيق وتُقارن بـ version.json عند التحقق من التحديثات.
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ^3.6.0
@@ -33,6 +33,9 @@ dependencies:
   package_info_plus: ^8.1.2
   open_filex: ^4.6.0
 
+  # تقرير الطبيب بصيغة PDF
+  pdf: ^3.11.1
+
   # تذكير الرضعات والجرعات
   flutter_local_notifications: ^18.0.1
   timezone: ^0.10.0
@@ -44,3 +47,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # خط عربي مضمَّن لتقرير PDF فقط — واجهة التطبيق تستعمل خط النظام.
+  # بدونه تظهر الحروف العربية في الـ PDF مربعات فارغة.
+  assets:
+    - assets/fonts/

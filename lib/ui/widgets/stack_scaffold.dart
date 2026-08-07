@@ -33,7 +33,7 @@ class StackScaffold extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () => Navigator.maybePop(context),
-                      icon: const Icon(Icons.arrow_forward_rounded,
+                      icon: Icon(Icons.arrow_forward_rounded,
                           size: 23, color: RC.ink2),
                       tooltip: 'رجوع',
                     ),
@@ -49,7 +49,7 @@ class StackScaffold extends StatelessWidget {
                         onPressed: onAction,
                         child: Text(
                           actionLabel!,
-                          style: const TextStyle(color: RC.cyanDark, fontSize: 16),
+                          style: TextStyle(color: RC.cyanDark, fontSize: 16),
                         ),
                       ),
                   ],
